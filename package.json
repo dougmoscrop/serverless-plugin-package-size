@@ -1,0 +1,32 @@
+{
+  "name": "serverless-plugin-package-size",
+  "version": "1.0.0",
+  "description": "Manage the size of your deployed serverless functions",
+  "main": "package-size.js",
+  "scripts": {
+    "test": "nyc --all ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dougmoscrop/severless-plugin-package-size.git"
+  },
+  "keywords": [
+    "serverless",
+    "plugin",
+    "aws",
+    "lambda"
+  ],
+  "author": "Doug Moscrop <doug.moscrop@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dougmoscrop/severless-plugin-package-size/issues"
+  },
+  "homepage": "https://github.com/dougmoscrop/severless-plugin-package-size#readme",
+  "devDependencies": {
+    "ava": "^1.2.1",
+    "nyc": "^13.3.0"
+  },
+  "dependencies": {
+    "bytes-iec": "^3.0.1"
+  }
+}
