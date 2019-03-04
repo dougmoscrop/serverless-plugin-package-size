@@ -1,10 +1,11 @@
 {
   "name": "serverless-plugin-package-size",
-  "version": "1.0.0",
-  "description": "Manage the size of your deployed serverless functions",
+  "version": "0.0.0",
+  "description": "Check the size of your serverless functions",
   "main": "package-size.js",
   "scripts": {
-    "test": "nyc --all ava"
+    "test": "nyc --all ava",
+    "posttest": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,9 @@
   "homepage": "https://github.com/dougmoscrop/severless-plugin-package-size#readme",
   "devDependencies": {
     "ava": "^1.2.1",
-    "nyc": "^13.3.0"
+    "nyc": "^13.3.0",
+    "sinon": "^7.2.7",
+    "eslint": "^5.15.0"
   },
   "dependencies": {
     "bytes-iec": "^3.0.1"

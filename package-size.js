@@ -8,13 +8,13 @@ module.exports = class PackageLimit {
 
     constructor(serverless, options) {
         const hooks = {
-            'after:package:createDeploymentArtifacts': this.createDeploymentArtifacts.bind(this)
+            'after:package:createDeploymentArtifacts': this.checkSize.bind(this)
         };
 
         Object.assign(this, { serverless, hooks, options });
     }
 
-    createDeploymentArtifacts() {
+    checkSize() {
         const { serverless, options } = this;
         const { service, config } = serverless;
         const { servicePath } = config;
