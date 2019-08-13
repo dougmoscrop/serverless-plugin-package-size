@@ -24,12 +24,12 @@
   },
   "homepage": "https://github.com/dougmoscrop/serverless-plugin-package-size#readme",
   "devDependencies": {
-    "ava": "^1.2.1",
-    "nyc": "^13.3.0",
-    "sinon": "^7.2.7",
-    "eslint": "^5.15.0"
+    "ava": "^1.4.1",
+    "nyc": "^14.1.1",
+    "sinon": "^7.4.1",
+    "eslint": "^6.1.0"
   },
   "dependencies": {
-    "bytes-iec": "^3.0.1"
+    "bytes-iec": "^3.1.0"
   }
 }
