@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dougmoscrop/severless-plugin-package-size.git"
+    "url": "git+https://github.com/dougmoscrop/serverless-plugin-package-size.git"
   },
   "keywords": [
     "serverless",
@@ -20,9 +20,9 @@
   "author": "Doug Moscrop <doug.moscrop@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dougmoscrop/severless-plugin-package-size/issues"
+    "url": "https://github.com/dougmoscrop/serverless-plugin-package-size/issues"
   },
-  "homepage": "https://github.com/dougmoscrop/severless-plugin-package-size#readme",
+  "homepage": "https://github.com/dougmoscrop/serverless-plugin-package-size#readme",
   "devDependencies": {
     "ava": "^1.2.1",
     "nyc": "^13.3.0",
