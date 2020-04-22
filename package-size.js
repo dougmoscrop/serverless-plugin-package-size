@@ -16,7 +16,7 @@ module.exports = class PackageLimit {
 
     checkSize() {
         const { serverless, options } = this;
-        const { service, config } = serverless;
+        const { service, config, cli } = serverless;
         const { servicePath } = config;
         const { custom = {} } = service;
         const { packageLimit } = custom;
@@ -58,6 +58,7 @@ module.exports = class PackageLimit {
                         const { size } = stats;
 
                         if (size < byteLimit) {
+                            cli.log(`[serverless-plugin-package-size] Size of ${functionName} is ${bytes(size)}`);
                             resolve();
                         } else {
                             reject(new Error(`Package size for ${functionName} (${bytes(size)}) is over ${packageLimit}`))

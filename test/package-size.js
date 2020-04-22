@@ -7,10 +7,8 @@ const sinon = require('sinon');
 
 const Plugin = require('../');
 
-const sandbox = sinon.createSandbox();
-
 test.beforeEach(() => {
-    sandbox.restore();
+    sinon.restore();
 });
 
 test('has hooks', t => {
@@ -35,29 +33,31 @@ test('does nothing when no limit set', t => {
 });
 
 test.serial('pass when size is ok', t => {
-    const getAllFunctions = sandbox.stub().returns(['test']);
-    const getFunction = sandbox.stub().returns({});
+    const getAllFunctions = sinon.stub().returns(['test']);
+    const getFunction = sinon.stub().returns({});
 
     const custom = { packageLimit: '1mb' };
     const servicePath = __dirname;
     const service = { custom, getAllFunctions, getFunction, service: 'foo' };
     const config = { servicePath };
-    const serverless = { service, config };
+    const cli = { log: sinon.stub() };
+    const serverless = { service, config, cli };
     const options = {};
 
     const plugin = new Plugin(serverless, options);
 
-    const stat = sandbox.stub(fs, 'stat').yields(null, { size: 42 });
+    const stat = sinon.stub(fs, 'stat').yields(null, { size: 42 });
 
     return plugin.checkSize()
         .then(() => {
             t.is(stat.calledOnce, true);
+            t.is(cli.log.calledOnce, true);
         });
 });
 
 test.serial('rejects when size is bad', t => {
-    const getAllFunctions = sandbox.stub().returns(['test']);
-    const getFunction = sandbox.stub().returns({});
+    const getAllFunctions = sinon.stub().returns(['test']);
+    const getFunction = sinon.stub().returns({});
 
     const custom = { packageLimit: '1kb' };
     const servicePath = __dirname;
@@ -68,7 +68,7 @@ test.serial('rejects when size is bad', t => {
 
     const plugin = new Plugin(serverless, options);
 
-    const stat = sandbox.stub(fs, 'stat').yields(null, { size: 100000 });
+    const stat = sinon.stub(fs, 'stat').yields(null, { size: 100000 });
 
     return plugin.checkSize()
         .then(() => {
@@ -81,8 +81,8 @@ test.serial('rejects when size is bad', t => {
 });
 
 test.serial('skips checking with --noLimit', t => {
-    const getAllFunctions = sandbox.stub().returns(['test']);
-    const getFunction = sandbox.stub().returns({});
+    const getAllFunctions = sinon.stub().returns(['test']);
+    const getFunction = sinon.stub().returns({});
 
     const custom = { packageLimit: '1kb' };
     const servicePath = __dirname;
@@ -93,7 +93,7 @@ test.serial('skips checking with --noLimit', t => {
 
     const plugin = new Plugin(serverless, options);
 
-    const stat = sandbox.stub(fs, 'stat').yields(null, { size: 100000 });
+    const stat = sinon.stub(fs, 'stat').yields(null, { size: 100000 });
 
     return plugin.checkSize()
         .then(() => {
