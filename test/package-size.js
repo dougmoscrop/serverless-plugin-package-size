@@ -76,6 +76,56 @@ test.serial('rejects when size is bad', t => {
         })
         .catch(e => {
             t.is(stat.calledOnce, true);
+            t.is(e.message, 'Package size for foo (100kB) is over 1kb');
+        });
+});
+
+test.serial('rejects when size is bad (global indivdually)', t => {
+    const getAllFunctions = sinon.stub().returns(['test']);
+    const getFunction = sinon.stub().returns({});
+
+    const custom = { packageLimit: '1kb' };
+    const servicePath = __dirname;
+    const service = { custom, getAllFunctions, getFunction, service: 'foo', package: { individually: true } };
+    const config = { servicePath };
+    const serverless = { service, config };
+    const options = {};
+
+    const plugin = new Plugin(serverless, options);
+
+    const stat = sinon.stub(fs, 'stat').yields(null, { size: 100000 });
+
+    return plugin.checkSize()
+        .then(() => {
+            t.fail('should reject');
+        })
+        .catch(e => {
+            t.is(stat.calledOnce, true);
+            t.is(e.message, 'Package size for test (100kB) is over 1kb');
+        });
+});
+
+test.serial('rejects when size is bad (function indivdually)', t => {
+    const getAllFunctions = sinon.stub().returns(['test']);
+    const getFunction = sinon.stub().returns({ package: { individually: true } });
+
+    const custom = { packageLimit: '1kb' };
+    const servicePath = __dirname;
+    const service = { custom, getAllFunctions, getFunction, service: 'foo', package: { individually: false } };
+    const config = { servicePath };
+    const serverless = { service, config };
+    const options = {};
+
+    const plugin = new Plugin(serverless, options);
+
+    const stat = sinon.stub(fs, 'stat').yields(null, { size: 100000 });
+
+    return plugin.checkSize()
+        .then(() => {
+            t.fail('should reject');
+        })
+        .catch(e => {
+            t.is(stat.calledOnce, true);
             t.is(e.message, 'Package size for test (100kB) is over 1kb');
         });
 });
