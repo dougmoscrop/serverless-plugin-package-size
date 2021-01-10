@@ -43,14 +43,8 @@ module.exports = class PackageLimit {
             const individually = !!functionPackage.individually || !!servicePackage.individually;
             const { artifact } = individually ? functionPackage : servicePackage;
             
-            let filePath;
-            
-            if (artifact) {
-                filePath = path.join(servicePath, artifact);
-            } else {
-                const fileName = individually ? functionName : serviceName;
-                filePath = path.join(servicePath, '.serverless', `${fileName}.zip`);
-            }
+            const fileName = individually ? functionName : serviceName;
+            const filePath = artifact ? path.join(servicePath, artifact) : path.join(servicePath, '.serverless', `${fileName}.zip`);
 
             if (checked.has(filePath)) {
                 return Promise.resolve();
