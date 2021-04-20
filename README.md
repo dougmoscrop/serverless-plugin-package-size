@@ -10,3 +10,9 @@ custom:
 ```
 
 This will fail if your package artifact exceeds 2mb. Supports whatever `bytes-iec` supports for the limit expression.
+
+If you want to ignore the limit for a specific deployment, you can pass the `--noLimit` option to the `serverless` command:
+
+```sh
+serverless deploy --stage staging --noLimit
+```
